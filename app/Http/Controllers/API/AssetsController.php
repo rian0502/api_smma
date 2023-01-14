@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Assets;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 
 class AssetsController extends Controller
 {
@@ -17,7 +18,9 @@ class AssetsController extends Controller
     {
         $data = Assets::all();
 
-        return response()->json($data);
+        return response()->json([
+            'data' => $data
+        ]);
     }
 
     /**
@@ -29,6 +32,29 @@ class AssetsController extends Controller
     public function store(Request $request)
     {
         //
+        $data = [
+            'uuid' => Uuid::uuid4()->toString(),
+            'id_model' => $request->id_model,
+            'id_location' => $request->id_location,
+            'id_supplier' => $request->id_supplier,
+            'nama_asset' => $request->nama_asset,
+            'purchase_date' => $request->purchase_date,
+            'order_number' => $request->order_number,
+            'notes' => $request->notes,
+        ];
+        $insert = Assets::create($data);
+        if ($insert) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data berhasil disimpan',
+
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data gagal disimpan',
+            ], 400);
+        }
     }
 
     /**
@@ -49,9 +75,31 @@ class AssetsController extends Controller
      * @param  \App\Models\Assets  $assets
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Assets $assets)
+    public function update(Request $request, $id)
     {
         //
+        $data = [
+            'id_model' => $request->id_model,
+            'id_location' => $request->id_location,
+            'id_supplier' => $request->id_supplier,
+            'nama_asset' => $request->nama_asset,
+            'purchase_date' => $request->purchase_date,
+            'order_number' => $request->order_number,
+            'notes' => $request->notes,
+        ];
+        $update = Assets::where('id', $id)->update($data);
+        if ($update) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data berhasil diupdate',
+
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data gagal diupdate',
+            ], 400);
+        }
     }
 
     /**

@@ -12,11 +12,14 @@ class locations extends Model
     use HasFactory;
 
     protected $table = 'locations';
+    protected $primaryKey = 'uuid';
     protected $fillable = [
         'uuid',
         'nama_gedung',
         'lantai'
     ];
 
-    
+    public function assets(){
+        return $this->hasMany(assets::class);
+    }
 }

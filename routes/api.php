@@ -1,9 +1,14 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Location;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\API\ModelsController;
+use App\Http\Controllers\API\TeknisiController;
+use App\Http\Controllers\API\LocationsController;
+use App\Http\Controllers\API\SuppliersController;
+use App\Http\Controllers\API\CategoriesController;
+use App\Http\Controllers\API\ManufacturerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +24,19 @@ use App\Http\Controllers\AuthController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('models', [ModelsController::class, 'index']);
+Route::get('models/{id}', [ModelsController::class, 'detail']);
+Route::post('models', [ModelsController::class, 'store']);
+Route::put('models/{id}', [ModelsController::class, 'update']);
+Route::delete('models/{id}', [ModelsController::class, 'destroy']);
+
+
+Route::get('assets', [ManufacturerController::class, 'index']);
+Route::post('assets', [ManufacturerController::class, 'store']);
+Route::get('assets/{id}', [ManufacturerController::class, 'show']);
+Route::put('assets/{id}', [ManufacturerController::class, 'update']);
+Route::delete('assets/{id}', [ManufacturerController::class, 'destroy']);
 
 Route::get('locations', [LocationsController::class, 'index']);
 Route::post('locations', [LocationsController::class, 'store']);

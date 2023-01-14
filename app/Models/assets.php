@@ -20,4 +20,14 @@ class assets extends Model
        'order_number',
        'notes',
     ];
+
+    public function model(){
+        return $this->belongsTo(models::class, 'id_model');
+    }
+    public function location(){
+        return $this->belongsTo(locations::class, 'id_location');
+    }
+    public function supplier(){
+        return $this->belongsTo(suppliers::class, 'id_supplier');
+    }
 }

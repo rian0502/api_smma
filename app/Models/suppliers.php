@@ -9,9 +9,13 @@ class suppliers extends Model
 {
     use HasFactory;
     protected $table = 'suppliers';
+    protected $primaryKey = 'uuid';
     protected $fillable = [
         'uuid',
         'nama_supplier',
         'no_telp'
     ];
+    public function assets(){
+        return $this->hasMany(assets::class);
+    }
 }

@@ -17,8 +17,23 @@ class ModelsController extends Controller
     public function index()
     {
         $data = Models::all();
-
         return response()->json($data);
+    }
+
+    public function detail($id){
+        $data = Models::where('uuid', $id)->first();
+        return response()->json([
+            'model' => [
+                'uuid' => $data->uuid,
+                'nama_model' => $data->nama_model,
+                'no_model' => $data->no_model,
+                'foto' => $data->foto,
+                'id_manufacturer' => $data->id_manufacturer,
+                'id_kategori' => $data->id_kategori,
+                'nama_manufacturer' => $data->manufacturer->nama_manufactur,
+                'nama_kategori' => $data->category->nama_kategori,
+            ],
+        ]);
     }
 
     /**
@@ -67,9 +82,28 @@ class ModelsController extends Controller
      * @param  \App\Models\Models  $models
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Models $models)
+    public function update(Request $request, $id)
     {
         //
+        $data = [
+            'nama_model' => $request->nama_model,
+            'id_manufacturer' => $request->id_manufacturer,
+            'id_kategori' => $request->id_kategori,
+            'no_model' => $request->no_model,
+        ];
+        $models = Models::where('uuid', $id)->update($data);
+        if ($models) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data berhasil diubah',
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data gagal diubah',
+            ], 400);
+        }
+
     }
 
     /**
