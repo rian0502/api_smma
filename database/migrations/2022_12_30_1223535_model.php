@@ -19,13 +19,11 @@ return new class extends Migration
             $table->string('nama_model');
             $table->string('id_manufacturer');
             $table->string('id_kategori');
-            $table->string('id_supplier');
             $table->string('no_model');
             $table->string('foto');
             $table->timestamps();
             $table->foreign('id_manufacturer')->references('uuid')->on('manufacturer')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_kategori')->references('uuid')->on('categories')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_supplier')->references('uuid')->on('suppliers')->onUpdate('cascade')->onDelete('cascade');
             $table->engine = 'InnoDB';
         });
     }

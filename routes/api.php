@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Location;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Location;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/location', [Location::class, 'store']);
+Route::get('/location', [Location::class, 'index'])->middleware('auth:sanctum');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
