@@ -35,6 +35,7 @@ class AssetsController extends Controller
         $data = [
             'uuid' => Uuid::uuid4()->toString(),
             'id_model' => $request->id_model,
+            'serial' => date('ymdhis'),
             'id_location' => $request->id_location,
             'id_supplier' => $request->id_supplier,
             'nama_asset' => $request->nama_asset,
@@ -108,8 +109,20 @@ class AssetsController extends Controller
      * @param  \App\Models\Assets  $assets
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Assets $assets)
+    public function destroy($id)
     {
         //
+        $delete = Assets::where('uuid', $id)->delete();
+        if ($delete) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data berhasil dihapus',
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data gagal dihapus',
+            ], 400);
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Maintenance;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 
 class MaintenanceController extends Controller
 {
@@ -17,7 +18,9 @@ class MaintenanceController extends Controller
     {
         $data = Maintenance::all();
 
-        return response()->json($data);
+        return response()->json([
+            'data' => $data,
+        ]);
     }
 
     /**
@@ -29,6 +32,24 @@ class MaintenanceController extends Controller
     public function store(Request $request)
     {
         //
+        $data = [
+            'uuid' => Uuid::uuid4()->toString(),
+            'id_asset' => $request->id_asset,
+            'id_teknisi' => $request->id_teknisi,
+            'note' => $request->note,
+        ];
+        $insert = Maintenance::create($data);
+        if ($insert) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data berhasil disimpan',
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data gagal disimpan',
+            ], 400);
+        }
     }
 
     /**
@@ -49,9 +70,26 @@ class MaintenanceController extends Controller
      * @param  \App\Models\Maintenance  $maintenance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Maintenance $maintenance)
+    public function update(Request $request, $id)
     {
         //
+        $data = [
+            'id_asset' => $request->id_asset,
+            'id_teknisi' => $request->id_teknisi,
+            'note' => $request->note,
+        ];
+        $update = Maintenance::where('uuid', $id)->update($data);
+        if ($update) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data berhasil diupdate',
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data gagal diupdate',
+            ], 400);
+        }
     }
 
     /**

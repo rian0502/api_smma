@@ -3,12 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\API\AssetsController;
 use App\Http\Controllers\API\ModelsController;
 use App\Http\Controllers\API\TeknisiController;
 use App\Http\Controllers\API\LocationsController;
 use App\Http\Controllers\API\SuppliersController;
 use App\Http\Controllers\API\CategoriesController;
 use App\Http\Controllers\API\ManufacturerController;
+use App\Models\maintenance;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,11 +34,11 @@ Route::put('models/{id}', [ModelsController::class, 'update']);
 Route::delete('models/{id}', [ModelsController::class, 'destroy']);
 
 
-Route::get('assets', [ManufacturerController::class, 'index']);
-Route::post('assets', [ManufacturerController::class, 'store']);
-Route::get('assets/{id}', [ManufacturerController::class, 'show']);
-Route::put('assets/{id}', [ManufacturerController::class, 'update']);
-Route::delete('assets/{id}', [ManufacturerController::class, 'destroy']);
+Route::get('assets', [AssetsController::class, 'index']);
+Route::post('assets', [AssetsController::class, 'store']);
+Route::get('assets/{id}', [AssetsController::class, 'show']);
+Route::put('assets/{id}', [AssetsController::class, 'update']);
+Route::delete('assets/{id}', [AssetsController::class, 'destroy']);
 
 Route::get('locations', [LocationsController::class, 'index']);
 Route::post('locations', [LocationsController::class, 'store']);
@@ -68,7 +70,11 @@ Route::get('manufacturer/{id}', [ManufacturerController::class, 'show']);
 Route::put('manufacturer/{id}', [ManufacturerController::class, 'update']);
 Route::delete('manufacturer/{id}', [ManufacturerController::class, 'destroy']);
 
-
+Route::get('maintenance', [maintenance::class, 'index']);
+Route::post('maintenance', [maintenance::class, 'store']);
+Route::get('maintenance/{id}', [maintenance::class, 'show']);
+Route::put('maintenance/{id}', [maintenance::class, 'update']);
+Route::delete('maintenance/{id}', [maintenance::class, 'destroy']);
 
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
