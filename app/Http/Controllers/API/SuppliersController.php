@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Suppliers;
+use App\Models\suppliers;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 

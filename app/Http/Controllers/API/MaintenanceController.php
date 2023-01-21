@@ -16,11 +16,7 @@ class MaintenanceController extends Controller
      */
     public function index()
     {
-        $data = Maintenance::all();
 
-        return response()->json([
-            'data' => $data,
-        ]);
     }
 
     /**

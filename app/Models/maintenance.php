@@ -15,4 +15,15 @@ class maintenance extends Model
         'id_teknisi',
         'note',
     ];
+
+
+    public function asset()
+    {
+        return $this->belongsTo(assets::class, 'id_asset');
+    }
+
+    public function teknisi()
+    {
+        return $this->belongsTo(teknisi::class, 'id_teknisi');
+    }
 }

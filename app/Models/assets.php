@@ -9,6 +9,7 @@ class assets extends Model
 {
     use HasFactory;
     protected $table = 'assets';
+    protected $primaryKey = 'uuid';
     protected $fillable = [
        'uuid',
        'serial',
@@ -29,5 +30,8 @@ class assets extends Model
     }
     public function supplier(){
         return $this->belongsTo(suppliers::class, 'id_supplier');
+    }
+    public function maintenance(){
+        return $this->hasMany(maintenance::class);
     }
 }

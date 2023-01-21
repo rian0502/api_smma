@@ -9,8 +9,8 @@ use App\Http\Controllers\API\TeknisiController;
 use App\Http\Controllers\API\LocationsController;
 use App\Http\Controllers\API\SuppliersController;
 use App\Http\Controllers\API\CategoriesController;
+use App\Http\Controllers\API\MaintenanceController;
 use App\Http\Controllers\API\ManufacturerController;
-use App\Models\maintenance;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,11 +70,11 @@ Route::get('manufacturer/{id}', [ManufacturerController::class, 'show']);
 Route::put('manufacturer/{id}', [ManufacturerController::class, 'update']);
 Route::delete('manufacturer/{id}', [ManufacturerController::class, 'destroy']);
 
-Route::get('maintenance', [maintenance::class, 'index']);
-Route::post('maintenance', [maintenance::class, 'store']);
-Route::get('maintenance/{id}', [maintenance::class, 'show']);
-Route::put('maintenance/{id}', [maintenance::class, 'update']);
-Route::delete('maintenance/{id}', [maintenance::class, 'destroy']);
+Route::get('maintenance', [MaintenanceController::class, 'index']);
+Route::post('maintenance', [MaintenanceController::class, 'store']);
+Route::get('maintenance/{id}', [MaintenanceController::class, 'show']);
+Route::put('maintenance/{id}', [MaintenanceController::class, 'update']);
+Route::delete('maintenance/{id}', [MaintenanceController::class, 'destroy']);
 
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');

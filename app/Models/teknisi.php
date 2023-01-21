@@ -9,9 +9,15 @@ class teknisi extends Model
 {
     use HasFactory;
     protected $table = 'teknisi';
+    protected $primaryKey = 'uuid';
     protected $fillable = [
         'uuid',
         'nik',
         'nama_teknisi'
     ];
+
+    public function maintenance()
+    {
+        return $this->hasMany(maintenance::class);
+    }
 }
